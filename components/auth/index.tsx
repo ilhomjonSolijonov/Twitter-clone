@@ -2,11 +2,19 @@ import Image from "next/image";
 import Button from "@/components/ui/button";
 import { FcGoogle } from "react-icons/fc";
 import {AiFillGithub} from "react-icons/ai";
-
+import useRegisterModal from "@/hooks/useRegisterModal";
+import {useCallback} from "react";
+import RegisterModal from "@/components/modals/registerModal";
 
 
 export default function Auth(){
+    const registerModal = useRegisterModal();
+
+    const onOpenRegisterModal = useCallback(() => {
+        registerModal.onOpen();
+    }, [registerModal]);
     return<>
+        <RegisterModal/>
         <div className="grid md:grid-cols-2 items-center gap-10 h-screen">
             <Image
                 src={"/images/x.svg"}
@@ -43,11 +51,18 @@ export default function Auth(){
                             <div className="h-px bg-gray-700 w-1/2"/>
                         </div>
                         <Button label="Create account" fullWidth />
+                        <div className="text-[10px] text-gray-400">
+                            By signing up, you agree to the {" "}
+                            <span className="text-sky-500">Terms of Services</span>, and
+                            <span className="text-sky-500"> Privacy Policy</span>, including
+                            <span className="text-sky-500"> Cookie Use</span>.
+                        </div>
                     </div>
                 </div>
                 <div className="w-full md:w-[60%]">
                     <h3 className="font-medium text-xl mb-4">Already have an account?</h3>
                     <Button label="Sign-in" outline fullWidth />
+
                 </div>
             </div>
         </div>
